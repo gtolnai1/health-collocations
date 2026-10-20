@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Healthy habits · Do, Go, Have</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#183b3b;background:#f1f8f4;font-size:17px}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top right,#ffe4bc88,transparent 55%),radial-gradient(ellipse at bottom left,#b4e5dd88,transparent 55%);min-height:100vh}main{max-width:1100px;margin:auto;padding:32px 22px}header{display:flex;justify-content:space-between;gap:16px;align-items:center}h1{font-size:clamp(2rem,5vw,3.3rem);line-height:1.08;margin:12px 0;color:#164c44;letter-spacing:-1.5px}.eyebrow{font-size:.8rem;letter-spacing:2px;font-weight:800;color:#5a675b}.badge{background:#ffdfab;padding:9px 15px;border-radius:30px;font-weight:750;white-space:nowrap}.intro{max-width:740px;line-height:1.6;margin:16px 0 22px}.panel{background:#ffffffdf;border:1px solid #d4e2d9;border-radius:22px;padding:22px;margin:18px 0;box-shadow:0 8px 24px #173e3510}h2{font-size:1.1rem;margin:0 0 10px}.bank{display:flex;flex-wrap:wrap;gap:10px;min-height:70px}.word{font:inherit;font-size:.96rem;background:white;border:1.5px solid #aac4bb;border-radius:11px;padding:11px 15px;color:#183b3b;cursor:grab;text-align:left;box-shadow:0 2px 0 #d5e5de;touch-action:manipulation}.word:hover{border-color:#23675b;background:#f3fbf7}.word.selected{background:#fff0c6;border:2px solid #815d13;box-shadow:0 0 0 3px #ffdfab}.word:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid #5e4fbc;outline-offset:4px}.columns{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.column{border-radius:20px;overflow:hidden;border:1px solid #bccfc6;background:#fff;min-width:0}.zone-title{border:0;border-bottom:1px solid #bccfc6;font:inherit;font-size:1.65rem;font-weight:850;color:#183b3b;width:100%;padding:14px;text-align:left;cursor:pointer}.column:nth-child(1) .zone-title{background:#ccebdc}.column:nth-child(2) .zone-title{background:#cfe8f7}.column:nth-child(3) .zone-title{background:#ffe2b6}.drop{min-height:230px;padding:16px;display:flex;align-content:flex-start;flex-wrap:wrap;gap:10px}.hint{color:#526e65;font-size:.88rem;line-height:1.6;margin:0}.column.over{outline:3px dashed #357565;outline-offset:3px}.placed{width:100%}.placed .word{width:100%}.correct .word{border-color:#247145;background:#e3f6e8}.incorrect .word{border-color:#a43c41;background:#fff0ec}.feedback{display:block;font-size:.84rem;padding:6px 3px 1px;line-height:1.4}.correct .feedback{color:#22633e}.incorrect .feedback{color:#8b2d31}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.action{border:1px solid #9eb8ae;border-radius:12px;padding:13px 20px;font:inherit;font-weight:700;background:#fff;color:#214b42;cursor:pointer}.primary{background:#205e50;color:white;border-color:#205e50}.action:hover{filter:brightness(.95)}button:disabled{opacity:.55;cursor:default}.status{font-weight:650;min-height:28px;margin:16px 0 0;line-height:1.6}details{margin-top:16px;line-height:1.6;font-size:.94rem}summary{cursor:pointer;color:#285b50}footer{text-align:center;color:#526a60;font-size:.8rem;margin-top:32px}#counter{float:right;color:#526a60;font-size:.85rem;font-weight:500}body.checked .word{cursor:default}@media(max-width:650px){main{padding:22px 14px}header{align-items:flex-start}.badge{font-size:.8rem}.columns{grid-template-columns:1fr}.drop{min-height:110px}.panel{padding:17px}.zone-title{padding:10px 16px}.actions .action{flex:1}.intro{font-size:.96rem}}@media(prefers-reduced-motion:no-preference){.word{transition:background .15s,border-color .15s}}
+</style>
+</head>
+<body>
+<main>
+<header><div><div class="eyebrow">EVERYDAY ENGLISH · COLLOCATIONS</div><h1>Small habits.<br>Healthy life.</h1></div><span class="badge">A2–B1</span></header>
+<p class="intro">Which verb goes with each phrase? Put the phrases into the <strong>DO</strong>, <strong>GO</strong> or <strong>HAVE</strong> group to make common collocations about a healthy lifestyle.</p>
+<details><summary>How to play / Magyar segítség</summary><p>Drag a phrase into a group, or select a phrase and then click a group heading. To move a phrase back, select it and click “Phrase bank”. With a keyboard, use Tab and Enter or Space. Click “Check answers” when you are ready.</p><p>Húzd a kifejezéseket a megfelelő igéhez! Kattintással is dolgozhatsz: válassz ki egy kifejezést, majd kattints a csoport fejlécére. Visszahelyezéshez válaszd ki a kifejezést, majd kattints a „Phrase bank” gombra. Az ellenőrzéshez kattints a „Check answers” gombra!</p></details>
+<section class="panel" aria-label="Phrase bank"><h2><span id="counter"></span><button class="action" id="bankButton">Phrase bank ↩</button></h2><p class="hint" id="bankHint">Select a phrase, then select a group. You can also drag and drop.</p><div id="bank" class="bank"></div></section>
+<div class="columns" id="columns"></div>
+<div class="actions"><button class="action primary" id="check">Check answers</button><button class="action" id="retry" hidden>Try incorrect answers again</button><button class="action" id="reset">Start again</button></div>
+<p id="status" class="status" role="status" aria-live="polite"></p>
+<footer>Healthy lifestyle · English practice · Angolgyorsan.hu</footer>
+</main>
+<script>
+'use strict';
+// Edit the phrases here. Each phrase belongs to one group.
+const items = [
+  {text:'exercise', group:'do'},
+  {text:'yoga', group:'do'},
+  {text:'gymnastics', group:'do'},
+  {text:'stretching exercises', group:'do'},
+  {text:'breathing exercises', group:'do'},
+  {text:'a workout', group:'do'},
+  {text:'jogging', group:'go'},
+  {text:'swimming', group:'go'},
+  {text:'cycling', group:'go'},
+  {text:'for a walk', group:'go'},
+  {text:'to bed early', group:'go'},
+  {text:'to the gym', group:'go'},
+  {text:'breakfast', group:'have'},
+  {text:'a healthy snack', group:'have'},
+  {text:'a balanced diet', group:'have'},
+  {text:'a shower', group:'have'},
+  {text:'a break', group:'have'},
+  {text:"a good night’s sleep", group:'have'}
+];
+const groups = ['do','go','have'];
+let assignments = {}, selected = null, checked = false, order = [];
+const $ = id => document.getElementById(id);
+function shuffled(values) {
+  const result = [...values];
+  for(let i=result.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[result[i],result[j]]=[result[j],result[i]];}
+  return result;
+}
+function selectPhrase(id){
+  if(checked)return;
+  selected = selected===id ? null : id;
+  document.querySelectorAll('.word').forEach(button=>{
+    const active=Number(button.dataset.id)===selected;
+    button.classList.toggle('selected',active);
+    button.setAttribute('aria-pressed',String(active));
+  });
+  $('status').textContent=selected===null?'Selection cleared.':`Selected: “${items[id].text}”. Choose DO, GO, HAVE or Phrase bank.`;
+}
+function move(id,group){
+  if(checked || !Number.isInteger(id) || !items[id])return;
+  if(group)assignments[id]=group;else delete assignments[id];
+  selected=null;
+  render();
+  $('status').textContent=`“${items[id].text}” moved to ${group ? group.toUpperCase() : 'the phrase bank'}.`;
+  document.querySelector(`[data-id="${id}"]`).focus();
+}
+function makeWord(id){
+  const wrapper=document.createElement('div');
+  const group=assignments[id];
+  wrapper.className=group?'placed':'';
+  const correct=group===items[id].group;
+  if(checked)wrapper.classList.add(correct?'correct':'incorrect');
+  const button=document.createElement('button');
+  button.className='word';button.textContent=items[id].text;button.dataset.id=id;
+  button.draggable=!checked;button.setAttribute('aria-pressed','false');
+  button.disabled=checked;
+  button.addEventListener('click',()=>selectPhrase(id));
+  button.addEventListener('dragstart',event=>{event.dataTransfer.setData('text/plain',String(id));event.dataTransfer.effectAllowed='move';});
+  wrapper.append(button);
+  if(checked){const feedback=document.createElement('span');feedback.className='feedback';feedback.textContent=correct?`✓ ${items[id].group} ${items[id].text}`:`${group?'✗':'Unanswered.'} Correct: ${items[id].group} ${items[id].text}`;wrapper.append(feedback);}
+  return wrapper;
+}
+function dropTarget(element,group){
+  element.addEventListener('dragover',event=>{if(!checked){event.preventDefault();element.classList.add('over');}});
+  element.addEventListener('dragleave',()=>element.classList.remove('over'));
+  element.addEventListener('drop',event=>{event.preventDefault();element.classList.remove('over');const raw=event.dataTransfer.getData('text/plain');if(/^\d+$/.test(raw))move(Number(raw),group);});
+}
+function render(){
+  $('bank').replaceChildren();$('columns').replaceChildren();
+  for(const id of order){if(!assignments[id])$('bank').append(makeWord(id));}
+  for(const group of groups){
+    const column=document.createElement('section');column.className='column';column.setAttribute('aria-label',`${group.toUpperCase()} group`);
+    const heading=document.createElement('button');heading.className='zone-title';heading.textContent=group.toUpperCase();heading.disabled=checked;
+    heading.setAttribute('aria-label',`Move selected phrase to ${group.toUpperCase()}`);
+    heading.addEventListener('click',()=>{if(selected!==null)move(selected,group);else $('status').textContent='Select a phrase first.';});
+    const zone=document.createElement('div');zone.className='drop';
+    const ids=order.filter(id=>assignments[id]===group);
+    if(!ids.length){const hint=document.createElement('p');hint.className='hint';hint.textContent='Drop phrases here, or select a phrase and click the heading.';zone.append(hint);}
+    ids.forEach(id=>zone.append(makeWord(id)));
+    column.append(heading,zone);dropTarget(column,group);$('columns').append(column);
+  }
+  const placed=Object.keys(assignments).length;
+  $('counter').textContent=`${placed} / ${items.length} placed`;
+  $('bankHint').hidden=checked;
+  $('check').disabled=checked;
+  $('bankButton').disabled=checked;
+  document.body.classList.toggle('checked',checked);
+}
+$('bankButton').addEventListener('click',()=>{if(selected!==null)move(selected,null);else $('status').textContent='Select a phrase to return it to the bank.';});
+dropTarget($('bank'),null);
+$('check').addEventListener('click',()=>{
+  checked=true;selected=null;
+  const score=items.filter((item,id)=>assignments[id]===item.group).length;
+  render();$('retry').hidden=score===items.length;
+  $('status').textContent=`Your score: ${score} / ${items.length}. ${score===items.length?'Excellent! All your collocations are correct.':'Look at the corrections. Then try the incorrect answers again.'}`;
+});
+$('retry').addEventListener('click',()=>{
+  items.forEach((item,id)=>{if(assignments[id]!==item.group)delete assignments[id];});
+  checked=false;selected=null;$('retry').hidden=true;render();
+  $('status').textContent='Correct answers stay in place. Sort the remaining phrases, then click Check answers.';
+});
+function reset(){assignments={};selected=null;checked=false;order=shuffled(items.map((_,id)=>id));$('retry').hidden=true;render();$('status').textContent='Ready? Make 18 healthy-lifestyle collocations.';}
+$('reset').addEventListener('click',reset);
+reset();
+</script>
+</body>
+</html>
